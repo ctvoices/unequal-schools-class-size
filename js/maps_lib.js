@@ -26,11 +26,11 @@ var MapsLib = {
 
   //MODIFY the encrypted Table IDs of your Fusion Tables (found under File => About)
   //NOTE: numeric IDs will be depricated soon
-  fusionTableId:      "1xojtVquxKvt8j3vxhdDC4imeTp1yqd79Vu-HYo7D", //Point data layer
+  fusionTableId:      "1YVTd9gHRpxJqd-UZ3ULef7oqsQGgdJyNMlkFUvMa", //Point data layer
   
-  polygon1TableID:    "1WbIxDRp5EJ8H-o2ZoA3iJe-7MKPPNZT62ECfFbf_", //Outline map layer of CT town boundaries
-  polygon2TableID:    "1lUY-LGZIBEVAdT82J6pKCsYj4Q6KNZQUpNG6QP6w", //Thematic map layer of selected CT school districts
-  polygon3TableID:    "10GpaVFxTtIGP2WT9qEPJOJpxyWtrmLqA-hGOqKWx",
+  polygon1TableID:    "1pHSiILxVHirfmJdtW_KPCzkMQK9m8CLXAnC-Z7ek", //Age
+  polygon2TableID:    "1bIC4f_uIF6H_TwoPKi_yEWSDSQVlvmgqX7DzLFVQ", //Education Attainment
+  polygon3TableID:    "1Ie1qRMx5YutKX3zfbtHwUo4-Cg617MVbKb-LpQ32", //Median Household Income
   
   //*MODIFY Fusion Tables Requirement* API key. found at https://code.google.com/apis/console/
   //*Important* this key is for demonstration purposes. please register your own.
@@ -40,15 +40,15 @@ var MapsLib = {
   //NOTE: if your location column name has spaces in it, surround it with single quotes
   //example: locationColumn:     "'my location'",
   //if your Fusion Table has two-column lat/lng data, see https://support.google.com/fusiontables/answer/175922
-  locationColumn:     "Lat",
+  locationColumn:     "Location 1",
 
-  map_centroid:       new google.maps.LatLng(41.760039, -72.739881), //center that your map defaults to
+  map_centroid:       new google.maps.LatLng(41.761575, -72.739280), //center that your map defaults to
   locationScope:      "connecticut",      //geographical area appended to all address searches
   recordName:         "result",       //for showing number of results
   recordNamePlural:   "results",
 
   searchRadius:       805,            //in meters ~ 1/2 mile
-  defaultZoom:        12,             //zoom level when map is loaded (bigger is more zoomed in)
+  defaultZoom:        9,             //zoom level when map is loaded (bigger is more zoomed in)
   addrMarkerImage:    'images/blue-pushpin.png',
   currentPinpoint:    null,
 
@@ -63,7 +63,7 @@ var MapsLib = {
       styles: [
         {
           stylers: [
-            { saturation: -100 }, // MODIFY Saturation and Lightness if needed
+            { saturation: 0 }, // MODIFY Saturation and Lightness if needed
             { lightness: 40 }     // Current values make thematic polygon shading stand out over base map
           ]
         }
@@ -82,8 +82,8 @@ var MapsLib = {
 
     MapsLib.searchrecords = null;
 
-    //MODIFY to initial values of the pre-checked polygon?
-    MapsLib.setDemographicsLabels("150&ndash;350", "350&ndash;650", "650&ndash;825");
+    //MODIFY to match 3-bucket GFT values of pre-checked polygon1  - see also further below
+    MapsLib.setDemographicsLabels("0%&ndash;30%", "30%&ndash;60%", "60%&ndash;100%");
 
     // MODIFY if needed: defines background polygon1 and polygon2 layers
     MapsLib.polygon1 = new google.maps.FusionTablesLayer({
@@ -104,7 +104,7 @@ var MapsLib = {
       templateId: 2
     });
     
-    MapsLib.polygon3 = new google.maps.FusionTablesLayer({
+     MapsLib.polygon3 = new google.maps.FusionTablesLayer({
       query: {
         from:   MapsLib.polygon3TableID,
         select: "geometry"
@@ -136,15 +136,15 @@ var MapsLib = {
     // MODIFY if needed: shows background polygon layer depending on which checkbox is selected
     if ($("#rbPolygon1").is(':checked')) {
       MapsLib.polygon1.setMap(map);
-      MapsLib.setDemographicsLabels("150&ndash;350", "350&ndash;650", "650&ndash;825"); //MODIFY
+      MapsLib.setDemographicsLabels("0%&ndash;30%", "30%&ndash;60%", "60%&ndash;100%"); //MODIFY to match 3 buckets in GFT
     }
     if ($("#rbPolygon2").is(':checked')) {
       MapsLib.polygon2.setMap(map);
-      MapsLib.setDemographicsLabels("20&ndash;40%", "40&ndash;60%", "60&ndash;80%"); //MODIFY
+      MapsLib.setDemographicsLabels("0&ndash;2.5k", "2.5k&ndash;10k", "10k&ndash;22k"); //MODIFY to match 3 buckets in GFT
     }
     if ($("#rbPolygon3").is(':checked')) {
       MapsLib.polygon3.setMap(map);
-      MapsLib.setDemographicsLabels("50k&ndash;65k", "65k&ndash;80k%", "80k&ndash;140k"); //MODIFY
+      MapsLib.setDemographicsLabels("0%&ndash;9%", "9%&ndash;12%", "12%&ndash;15%"); //MODIFY to match 3 buckets in GFT
     }
     if ($("#rbPolygonOff").is(':checked')) {   //the Off statement does not contain a setMap
       MapsLib.setDemographicsLabels("&ndash;", "&ndash;", "&ndash;");
@@ -158,24 +158,25 @@ var MapsLib = {
   //-----custom filters for point data layer
     //---MODIFY column header and values below to match your Google Fusion Table AND index.html
     //-- TEXTUAL OPTION to display legend and filter by non-numerical data in your table
-    /*var type_column = "'Type'";  // -- note use of single & double quotes for two-word column header
-         var tempWhereClause = [];
+    /* var type_column = "'Type'";  // -- note use of single & double quotes for two-word column header
+    var tempWhereClause = [];
     if ( $("#cbType1").is(':checked')) tempWhereClause.push("Early Childhood Programs");
     if ( $("#cbType2").is(':checked')) tempWhereClause.push("School");
     if ( $("#cbType3").is(':checked')) tempWhereClause.push("Home Care");
     if ( $("#cbType4").is(':checked')) tempWhereClause.push("Recreation");
     if ( $("#cbType5").is(':checked')) tempWhereClause.push("Health");
-    whereClause += " AND " + type_column + " IN ('" + tempWhereClause.join("','") + "')";*/
+    whereClause += " AND " + type_column + " IN ('" + tempWhereClause.join("','") + "')"; */
 
     //-- NUMERICAL OPTION - to display and filter a column of numerical data in your table, use this instead
-    var type_column = "'Number'";
+      var type_column = "'CMT Category #'";
     var searchType = type_column + " IN (-1,";
-    if ( $("#cbType1").is(':checked')) searchType += "1,";
-    if ( $("#cbType2").is(':checked')) searchType += "2,";
-    if ( $("#cbType3").is(':checked')) searchType += "3,";
-    if ( $("#cbType4").is(':checked')) searchType += "4,";
+    if ( $("#cbType1").is(':checked')) searchType += "0,";
+    if ( $("#cbType2").is(':checked')) searchType += "1,";
+    if ( $("#cbType3").is(':checked')) searchType += "2,";
+    if ( $("#cbType4").is(':checked')) searchType += "3,";
+    if ( $("#cbType5").is(':checked')) searchType += "4,";
     if ( $("#cbType5").is(':checked')) searchType += "5,";
-    whereClause += " AND " + searchType.slice(0, searchType.length - 1) + ")";
+    whereClause += " AND " + searchType.slice(0, searchType.length - 1) + ")"; 
     //-------end of custom filters--------
 
     if (address != "") {
