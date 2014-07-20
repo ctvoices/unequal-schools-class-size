@@ -40,7 +40,7 @@ var MapsLib = {
   //NOTE: if your location column name has spaces in it, surround it with single quotes
   //example: locationColumn:     "'my location'",
   //if your Fusion Table has two-column lat/lng data, see https://support.google.com/fusiontables/answer/175922
-  locationColumn:     "Location 1",
+  locationColumn:     "Location",
 
   map_centroid:       new google.maps.LatLng(41.761575, -72.739280), //center that your map defaults to
   locationScope:      "connecticut",      //geographical area appended to all address searches
@@ -168,7 +168,7 @@ var MapsLib = {
     whereClause += " AND " + type_column + " IN ('" + tempWhereClause.join("','") + "')"; */
 
     //-- NUMERICAL OPTION - to display and filter a column of numerical data in your table, use this instead
-    var type_column = "'CMT Category #'";
+    var type_column = "'Type'";
     var searchType = type_column + " IN (-1,";
     if ( $("#cbType1").is(':checked')) searchType += "0,";
     if ( $("#cbType2").is(':checked')) searchType += "1,";
