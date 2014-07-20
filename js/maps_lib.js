@@ -26,7 +26,7 @@ var MapsLib = {
 
   //MODIFY the encrypted Table IDs of your Fusion Tables (found under File => About)
   //NOTE: numeric IDs will be depricated soon
-  fusionTableId:      "1YVTd9gHRpxJqd-UZ3ULef7oqsQGgdJyNMlkFUvMa", //Point data layer
+  fusionTableId:      "1A4Xz1sTfXqA8jk3aOTxvIy3sf4-uEBurCp4JI95i", //Point data layer
   
   polygon1TableID:    "1pHSiILxVHirfmJdtW_KPCzkMQK9m8CLXAnC-Z7ek", //Racial Minority
   polygon2TableID:    "1Ie1qRMx5YutKX3zfbtHwUo4-Cg617MVbKb-LpQ32", //Number of Students
@@ -158,18 +158,17 @@ var MapsLib = {
   //-----custom filters for point data layer
     //---MODIFY column header and values below to match your Google Fusion Table AND index.html
     //-- TEXTUAL OPTION to display legend and filter by non-numerical data in your table
-    /* var type_column = "'Category CMT'";  // -- note use of single & double quotes for two-word column header
+ /* var type_column = "'Type'";  // -- note use of single & double quotes for two-word column header
     var tempWhereClause = [];
-    if ( $("#cbType1").is(':checked')) tempWhereClause.push("EXCELLING");
-    if ( $("#cbType2").is(':checked')) tempWhereClause.push("PROGRESSING");
-    if ( $("#cbType3").is(':checked')) tempWhereClause.push("TRANSITIONING");
-    if ( $("#cbType4").is(':checked')) tempWhereClause.push("REVIEW");
-    if ( $("#cbType5").is(':checked')) tempWhereClause.push("FOCUS");
-    if ( $("#cbType6").is(':checked')) tempWhereClause.push("TURNAROUND");
+    if ( $("#cbType1").is(':checked')) tempWhereClause.push("Early Childhood Programs");
+    if ( $("#cbType2").is(':checked')) tempWhereClause.push("School");
+    if ( $("#cbType3").is(':checked')) tempWhereClause.push("Home Care");
+    if ( $("#cbType4").is(':checked')) tempWhereClause.push("Recreation");
+    if ( $("#cbType5").is(':checked')) tempWhereClause.push("Health");
     whereClause += " AND " + type_column + " IN ('" + tempWhereClause.join("','") + "')"; */
 
     //-- NUMERICAL OPTION - to display and filter a column of numerical data in your table, use this instead
-     var type_column = "'Type'";
+    var type_column = "'CMT Category #'";
     var searchType = type_column + " IN (-1,";
     if ( $("#cbType1").is(':checked')) searchType += "0,";
     if ( $("#cbType2").is(':checked')) searchType += "1,";
@@ -179,6 +178,7 @@ var MapsLib = {
     if ( $("#cbType6").is(':checked')) searchType += "5,";
     whereClause += " AND " + searchType.slice(0, searchType.length - 1) + ")"; 
     //-------end of custom filters--------
+
 
     if (address != "") {
       if (address.toLowerCase().indexOf(MapsLib.locationScope) == -1)
