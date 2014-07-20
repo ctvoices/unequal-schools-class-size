@@ -83,7 +83,7 @@ var MapsLib = {
     MapsLib.searchrecords = null;
 
     //MODIFY to match 3-bucket GFT values of pre-checked polygon1  - see also further below
-    MapsLib.setDemographicsLabels("150&ndash;350", "350&ndash;650", "650&ndash;825");
+    MapsLib.setDemographicsLabels("0%&ndash;30%", "30%&ndash;60%", "60%&ndash;100%");
 
     // MODIFY if needed: defines background polygon1 and polygon2 layers
     MapsLib.polygon1 = new google.maps.FusionTablesLayer({
@@ -168,7 +168,7 @@ var MapsLib = {
     whereClause += " AND " + type_column + " IN ('" + tempWhereClause.join("','") + "')"; */
 
     //-- NUMERICAL OPTION - to display and filter a column of numerical data in your table, use this instead
-      var type_column = "'TypeNum'";
+      var type_column = "'CMT Category #'";
     var searchType = type_column + " IN (-1,";
     if ( $("#cbType1").is(':checked')) searchType += "0,";
     if ( $("#cbType2").is(':checked')) searchType += "1,";
