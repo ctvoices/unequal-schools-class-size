@@ -28,9 +28,9 @@ var MapsLib = {
   //NOTE: numeric IDs will be depricated soon
   fusionTableId:      "1YVTd9gHRpxJqd-UZ3ULef7oqsQGgdJyNMlkFUvMa", //Point data layer
   
-  polygon1TableID:    "1pHSiILxVHirfmJdtW_KPCzkMQK9m8CLXAnC-Z7ek", //Age
-  polygon2TableID:    "1bIC4f_uIF6H_TwoPKi_yEWSDSQVlvmgqX7DzLFVQ", //Education Attainment
-  polygon3TableID:    "1Ie1qRMx5YutKX3zfbtHwUo4-Cg617MVbKb-LpQ32", //Median Household Income
+  polygon1TableID:    "1pHSiILxVHirfmJdtW_KPCzkMQK9m8CLXAnC-Z7ek", //Racial Minority
+  polygon2TableID:    "1Ie1qRMx5YutKX3zfbtHwUo4-Cg617MVbKb-LpQ32", //Number of Students
+  polygon3TableID:    "1bIC4f_uIF6H_TwoPKi_yEWSDSQVlvmgqX7DzLFVQ", //Students with Disabilities
   
   //*MODIFY Fusion Tables Requirement* API key. found at https://code.google.com/apis/console/
   //*Important* this key is for demonstration purposes. please register your own.
