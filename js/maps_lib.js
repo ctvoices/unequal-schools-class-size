@@ -140,7 +140,7 @@ var MapsLib = {
     }
     if ($("#rbPolygon2").is(':checked')) {
       MapsLib.polygon2.setMap(map);
-      MapsLib.setDemographicsLabels("0K&ndash;2.5K", "2.5k&ndash;10k", "10K&ndash;22K"); //MODIFY to match 3 buckets in GFT
+      MapsLib.setDemographicsLabels("0K&ndash;2.5K", "2.5K&ndash;10K", "10K&ndash;22K"); //MODIFY to match 3 buckets in GFT
     }
     if ($("#rbPolygon3").is(':checked')) {
       MapsLib.polygon3.setMap(map);
