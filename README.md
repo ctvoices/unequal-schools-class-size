@@ -1,3 +1,3 @@
-CT-educational-redlining-CMT
+unequal-schools
 ============================
-View live demo at http://veronicaxarmendariz.github.io/CT-educational-redlining-CMT
+Contains code for CT Voices "Unequal Schools" interactive map.
