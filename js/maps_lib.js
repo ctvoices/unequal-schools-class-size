@@ -26,21 +26,20 @@ var MapsLib = {
 
   //MODIFY the encrypted Table IDs of your Fusion Tables (found under File => About)
   //NOTE: numeric IDs will be depricated soon
-  fusionTableId:      "1A4Xz1sTfXqA8jk3aOTxvIy3sf4-uEBurCp4JI95i", //Point data layer
+  fusionTableId:      "1-k_kAl8w1yi4lZ4EMLA-eGCLGyNHuCoRMTui_McH", //Point data layer
   
-  polygon1TableID:    "1pHSiILxVHirfmJdtW_KPCzkMQK9m8CLXAnC-Z7ek", //Racial Minority
-  polygon2TableID:    "1Ie1qRMx5YutKX3zfbtHwUo4-Cg617MVbKb-LpQ32", //Number of Students
-  polygon3TableID:    "1bIC4f_uIF6H_TwoPKi_yEWSDSQVlvmgqX7DzLFVQ", //Students with Disabilities
+  polygon1TableID:    "1aT8fZVTxW_kkW7jRpCw-S_VIy_KGzZDPIBgp-IHF", //Racial Minority
+  polygon2TableID:    "1hOJAQtahGbsvuuYGzg4cixi8VLJwdu6GI17Fa9iZ", //Child Povery
   
   //*MODIFY Fusion Tables Requirement* API key. found at https://code.google.com/apis/console/
   //*Important* this key is for demonstration purposes. please register your own.
-  googleApiKey:       "AIzaSyDIevSvpV-ONb4Pf15VUtwyr_zZa7ccwq4",
+  googleApiKey:       "AIzaSyC6xi2agSFA1YhbXBQ2OYxCPuBdNKTRthU",
 
   //MODIFY name of the location column in your Fusion Table.
   //NOTE: if your location column name has spaces in it, surround it with single quotes
   //example: locationColumn:     "'my location'",
   //if your Fusion Table has two-column lat/lng data, see https://support.google.com/fusiontables/answer/175922
-  locationColumn:     "Location",
+  locationColumn:     "KML",
 
   map_centroid:       new google.maps.LatLng(41.761575, -72.739280), //center that your map defaults to
   locationScope:      "connecticut",      //geographical area appended to all address searches
@@ -83,7 +82,7 @@ var MapsLib = {
     MapsLib.searchrecords = null;
 
     //MODIFY to match 3-bucket GFT values of pre-checked polygon1  - see also further below
-    MapsLib.setDemographicsLabels("0%&ndash;30%", "30%&ndash;60%", "60%&ndash;100%");
+    MapsLib.setDemographicsLabels("Under 29%", "29%&ndash;57%", "Over 57%");
 
     // MODIFY if needed: defines background polygon1 and polygon2 layers
     MapsLib.polygon1 = new google.maps.FusionTablesLayer({
@@ -136,15 +135,11 @@ var MapsLib = {
     // MODIFY if needed: shows background polygon layer depending on which checkbox is selected
     if ($("#rbPolygon1").is(':checked')) {
       MapsLib.polygon1.setMap(map);
-      MapsLib.setDemographicsLabels("0%&ndash;30%", "30%&ndash;60%", "60%&ndash;100%"); //MODIFY to match 3 buckets in GFT
+      MapsLib.setDemographicsLabels("Under 29%", "29%&ndash;57%", "Over 57%"); //MODIFY to match 3 buckets in GFT
     }
     if ($("#rbPolygon2").is(':checked')) {
       MapsLib.polygon2.setMap(map);
-      MapsLib.setDemographicsLabels("0K&ndash;2.5K", "2.5K&ndash;10K", "10K&ndash;22K"); //MODIFY to match 3 buckets in GFT
-    }
-    if ($("#rbPolygon3").is(':checked')) {
-      MapsLib.polygon3.setMap(map);
-      MapsLib.setDemographicsLabels("0%&ndash;9%", "9%&ndash;12%", "12%&ndash;15%"); //MODIFY to match 3 buckets in GFT
+      MapsLib.setDemographicsLabels("Under 15%", "15%&ndash;31%", "Over 31%"); //MODIFY to match 3 buckets in GFT
     }
     if ($("#rbPolygonOff").is(':checked')) {   //the Off statement does not contain a setMap
       MapsLib.setDemographicsLabels("&ndash;", "&ndash;", "&ndash;");
@@ -168,14 +163,13 @@ var MapsLib = {
     whereClause += " AND " + type_column + " IN ('" + tempWhereClause.join("','") + "')"; */
 
     //-- NUMERICAL OPTION - to display and filter a column of numerical data in your table, use this instead
-    var type_column = "'Type'";
+    var type_column = "'Kindergarten Class Size Quintile'";
     var searchType = type_column + " IN (-1,";
-    if ( $("#cbType1").is(':checked')) searchType += "0,";
-    if ( $("#cbType2").is(':checked')) searchType += "1,";
-    if ( $("#cbType3").is(':checked')) searchType += "2,";
-    if ( $("#cbType4").is(':checked')) searchType += "3,";
-    if ( $("#cbType5").is(':checked')) searchType += "4,";
-    if ( $("#cbType6").is(':checked')) searchType += "5,";
+    if ( $("#cbType1").is(':checked')) searchType += "1,";
+    if ( $("#cbType2").is(':checked')) searchType += "2,";
+    if ( $("#cbType3").is(':checked')) searchType += "3,";
+    if ( $("#cbType4").is(':checked')) searchType += "4,";
+    if ( $("#cbType5").is(':checked')) searchType += "5,";
     whereClause += " AND " + searchType.slice(0, searchType.length - 1) + ")"; 
     //-------end of custom filters--------
 
