@@ -26,7 +26,7 @@ var MapsLib = {
 
   //MODIFY the encrypted Table IDs of your Fusion Tables (found under File => About)
   //NOTE: numeric IDs will be depricated soon
-  fusionTableId:      "1-k_kAl8w1yi4lZ4EMLA-eGCLGyNHuCoRMTui_McH", //Point data layer
+  fusionTableId:      "1U5UvKhWL7blHpO6N8GeO-Sdp70sDoZlhAjJNWDaX", //Point data layer
   
   polygon1TableID:    "1aT8fZVTxW_kkW7jRpCw-S_VIy_KGzZDPIBgp-IHF", //Racial Minority
   polygon2TableID:    "1hOJAQtahGbsvuuYGzg4cixi8VLJwdu6GI17Fa9iZ", //Child Povery
@@ -41,7 +41,7 @@ var MapsLib = {
   //if your Fusion Table has two-column lat/lng data, see https://support.google.com/fusiontables/answer/175922
   locationColumn:     "KML",
 
-  map_centroid:       new google.maps.LatLng(41.761575, -72.739280), //center that your map defaults to
+  map_centroid:       new google.maps.LatLng(41.60000, -72.70000), //center that your map defaults to
   locationScope:      "connecticut",      //geographical area appended to all address searches
   recordName:         "result",       //for showing number of results
   recordNamePlural:   "results",
@@ -163,7 +163,7 @@ var MapsLib = {
     whereClause += " AND " + type_column + " IN ('" + tempWhereClause.join("','") + "')"; */
 
     //-- NUMERICAL OPTION - to display and filter a column of numerical data in your table, use this instead
-    var type_column = "'Kindergarten Class Size Quintile'";
+    var type_column = "'Kindergarten Quintile'";
     var searchType = type_column + " IN (-1,";
     if ( $("#cbType1").is(':checked')) searchType += "1,";
     if ( $("#cbType2").is(':checked')) searchType += "2,";
