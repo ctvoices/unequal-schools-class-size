@@ -26,7 +26,7 @@ var MapsLib = {
 
   //MODIFY the encrypted Table IDs of your Fusion Tables (found under File => About)
   //NOTE: numeric IDs will be depricated soon
-  fusionTableId:      "1U5UvKhWL7blHpO6N8GeO-Sdp70sDoZlhAjJNWDaX", //Point data layer
+  fusionTableId:      "1U5UvKhWL7blHpO6N8GeO-Sdp70sDoZlhAjJNWDaX", //Point data layer 
   
   polygon1TableID:    "1aT8fZVTxW_kkW7jRpCw-S_VIy_KGzZDPIBgp-IHF", //Racial Minority
   polygon2TableID:    "1hOJAQtahGbsvuuYGzg4cixi8VLJwdu6GI17Fa9iZ", //Child Povery
